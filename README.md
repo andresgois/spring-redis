@@ -1,38 +1,40 @@
 # Spring com Redis
 
-1️⃣ Baixar a imagem do PostgreSQL 17
-docker pull postgres:17
-2️⃣ Criar e executar o container
-docker run -d --name db_postgres -e POSTGRES_PASSWORD=senha123 -p 5432:5432 postgres:17
+- 1️⃣ Baixar a imagem do PostgreSQL 17
+`docker pull postgres:17`
+- 2️⃣ Criar e executar o container
+`docker run -d --name db_postgres -e POSTGRES_PASSWORD=senha123 -p 5432:5432 postgres:17`
 
-O que cada parte faz
--d → roda em background
---name db_postgres → nome do container
--e POSTGRES_PASSWORD → senha do usuário postgres
--p 5432:5432 → expõe a porta do banco
-postgres:17 → imagem usada
+- O que cada parte faz
+    - -d → roda em background
+    - --name db_postgres → nome do container
+    - -e POSTGRES_PASSWORD → senha do usuário postgres
+    - -p 5432:5432 → expõe a porta do banco
+    - postgres:17 → imagem usada
 
-3️⃣ Verificar se o container está rodando
-docker ps
-4️⃣ Conectar ao banco dentro do container
-docker exec -it db_postgres psql -U postgres
-5️⃣ Conectar de fora (ex: aplicação)
+- 3️⃣ Verificar se o container está rodando
+`docker ps`
+- 4️⃣ Conectar ao banco dentro do container
+`docker exec -it db_postgres psql -U postgres`
+- 5️⃣ Conectar de fora (ex: aplicação)
 
-Configuração típica:
-
+> Configuração típica:
+```bash
 host: localhost
 port: 5432
 database: postgres
 user: postgres
 password: senha123
-6️⃣ Criar container com volume (dados persistentes)
+```
+
+- 6️⃣ Criar container com volume (dados persistentes)
 
 Isso evita perder os dados quando o container for removido.
 
-docker run -d --name db_postgres -e POSTGRES_PASSWORD=senha123 -p 5432:5432 -v pgdata:/var/lib/postgresql/data postgres:17
-7️⃣ Parar e remover container
-docker stop db_postgres
-docker rm db_postgres
+`docker run -d --name db_postgres -e POSTGRES_PASSWORD=senha123 -p 5432:5432 -v pgdata:/var/lib/postgresql/data postgres:17`
+- 7️⃣ Parar e remover container
+- `docker stop db_postgres`
+- `docker rm db_postgres`
 
 💡 Dica profissional: se você for usar em projetos, o ideal é usar Docker Compose.
 
@@ -62,61 +64,75 @@ docker compose up -d
 ```
 
 ### Principais comandos
-Ver ajuda
+```
+----Ver ajuda
 \?
-Listar bancos
+----Listar bancos
 \l
-Conectar em um banco
+----Conectar em um banco
 \c nome_do_banco
-Listar tabelas
+----Listar tabelas
 \dt
-Ver estrutura de uma tabela
+----Ver estrutura de uma tabela
 \d nome_tabela
-Listar usuários
+----Listar usuários
 \du
-Ver schemas
+----Ver schemas
 \dn
-Limpar tela
+----Limpar tela
 \! clear
-Sair do psql
+----Sair do psql
 \q
-2️⃣ Comandos SQL principais
-Criar banco
+```
+
+- 2️⃣ Comandos SQL principais
+
+```sql
+----Criar banco
 CREATE DATABASE empresa;
-Conectar no banco
+----Conectar no banco
 \c empresa
-Criar tabela
+----Criar tabela
 CREATE TABLE usuarios (
-id SERIAL PRIMARY KEY,
-nome VARCHAR(100),
-email VARCHAR(100)
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(100),
+    email VARCHAR(100)
 );
-Inserir dados
-INSERT INTO usuarios (nome, email)
-VALUES ('João', 'joao@email.com');
-Consultar dados
+----Inserir dados
+INSERT INTO usuarios (nome, email) VALUES ('João', 'joao@email.com');
+----Consultar dados
 SELECT * FROM usuarios;
-Atualizar dados
-UPDATE usuarios
-SET nome = 'João Silva'
-WHERE id = 1;
-Deletar dados
-DELETE FROM usuarios
-WHERE id = 1;
+----Atualizar dados
+UPDATE usuarios SET nome = 'João Silva' WHERE id = 1;
+----Deletar dados
+DELETE FROM usuarios WHERE id = 1;
+```
+
+
 3️⃣ Comandos úteis no psql
+```sql
 Mostrar banco atual
 SELECT current_database();
 Mostrar usuário atual
 SELECT current_user;
 Ver versão do PostgreSQL
 SELECT version();
+```
+
 4️⃣ Criar usuário
+```sql
 CREATE USER dev WITH PASSWORD '123456';
+```
 
 Dar permissão:
+```sql
 ALTER USER dev WITH SUPERUSER;
+```
+
 5️⃣ Dar acesso a banco
+```sql
 GRANT ALL PRIVILEGES ON DATABASE empresa TO dev;
+```
 
 
 ## Cache
