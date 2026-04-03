@@ -3,6 +3,7 @@ package br.com.springredis.service;
 import br.com.springredis.entity.Empresa;
 import br.com.springredis.repository.EmpresaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 

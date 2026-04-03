@@ -22,4 +22,9 @@ public class CacheController {
         cacheService.evictAllCacheValues(cacheName);
         return ResponseEntity.ok("Limpeza de cache concluida!");
     }
+
+    @PutMapping
+    public void atualizar() {
+        cacheService.atualizarCacheEmpresa();
+    }
 }
