@@ -279,3 +279,33 @@ public class Main {
 - Cada requisição → pode rodar em uma thread diferente
 - Cache evita acessar banco várias vezes
 - Spring faz isso automaticamente com @Cacheable🎯 Resumo final
+
+
+## Redis
+> Acessar painel
+http://localhost:5540
+
+### 🔗 Conectar no Redis dentro do RedisInsight
+
+Quando abrir:
+
+- Clique em Add Redis Database
+  - Preencha:
+  - Host: redis
+  - Port: 6379
+- redis://default@redis:6379
+
+> ⚠️ Importante:
+
+- Use redis (nome do container), não localhost
+
+### 🧠 Como funciona
+- redis → banco em memória
+- redis-insight → interface gráfica
+
+> Você vai conseguir:
+- ver chaves
+- ver valores
+- ver TTL
+- deletar cache
+- monitorar uso
